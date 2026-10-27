@@ -1,0 +1,853 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DuoQueue is out now</title>
+<meta name="description" content="DuoQueue is out now, free to download on iPhone, so there is no waitlist to join any more. Download it on the App Store.">
+
+<meta name="robots" content="noindex">
+<meta http-equiv="refresh" content="0; url=https://apps.apple.com/app/apple-store/id6798837181?pt=129274943&amp;ct=meta&amp;mt=8">
+<link rel="icon" href="/favicon.png" type="image/png">
+<link rel="apple-touch-icon" href="/favicon.png">
+<meta name="theme-color" content="#F6F3EA">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="DuoQueue">
+<meta property="og:title" content="DuoQueue is out now">
+<meta property="og:description" content="DuoQueue is out now, free to download on iPhone, so there is no waitlist to join any more. Download it on the App Store.">
+<meta property="og:image" content="https://duoqueue.io/og-launch.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+
+<meta name="twitter:card" content="summary_large_image">
+
+<style>
+  @font-face{font-family:"Unbounded";src:url(/fonts/unbounded-700.woff2) format("woff2");font-weight:700;font-style:normal;font-display:swap;}
+  @font-face{font-family:"Manrope";src:url(/fonts/manrope-800.woff2) format("woff2");font-weight:800;font-style:normal;font-display:swap;}
+  @font-face{font-family:"Manrope";src:url(/fonts/manrope-700.woff2) format("woff2");font-weight:700;font-style:normal;font-display:swap;}
+  @font-face{font-family:"Manrope";src:url(/fonts/manrope-500.woff2) format("woff2");font-weight:500;font-style:normal;font-display:swap;}
+  @font-face{font-family:"IBM Plex Mono";src:url(/fonts/plex-mono-600.woff2) format("woff2");font-weight:600;font-style:normal;font-display:swap;}
+  :root {
+    --ground: #F6F3EA;
+    --ink: #161A0F;
+    --muted: #5C6450;
+    --accent: #4A6B00;
+    --brand: #CDFF3D;
+    --slab: #0A0B09;
+    --field: #FFFFFF;
+    --rule: #C9CFBB;
+    --mark-ink: #161A0F;
+    --mark-duo: #72766b;
+    --x0: clamp(20px, 12.9vw - 21.26px, 118px);
+    --app-bg: #F2F4EB;
+    --app-surface: #FFFFFF;
+    --app-alt: #E7EBDB;
+    --app-border: #C9CFBB;
+    --app-text: #161A0F;
+    --app-muted: #5C6450;
+    --app-volt: #4A6B00;
+    --app-volt-dim: #3B5600;
+    --app-on-volt: #F7F9F0;
+    --app-amber: #8F5E00;
+    --tier-none: #66705C;
+    --tier-one: #4E7018;
+    --tier-two: #5A7A00;
+    --tier-many: #8F5E00;
+    --bubble-own: #E4EDC8;
+    --hairline: #E2E0D6;
+    --card-shadow: 0px 1px 2px rgba(41,34,18,0.06), 0px 14px 32px -14px rgba(41,34,18,0.22);
+    color-scheme: light;
+    --t-instant: 90ms;
+    --t-quick: 140ms;
+    --t-base: 200ms;
+    --t-deliberate: 260ms;
+    --t-arrival: 267ms;
+    --t-settle: 1133ms;
+    --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+    --ease-sine-out: cubic-bezier(0.61, 1, 0.88, 1);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  body {
+    background-color: var(--ground);
+    background-image: radial-gradient(56% 32% at 42% 58%, rgba(255,255,251,0.5) 0%, rgba(255,255,251,0) 74%), linear-gradient(178deg, #FAF8F2 0%, #F6F3EA 52%, #F3EFE5 100%);
+    background-attachment: fixed, fixed;
+    color: var(--ink);
+    font-family: Manrope, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-weight: 500;
+    font-size: 17px;
+    line-height: 1.6;
+    letter-spacing: -0.005em;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  p { text-wrap: pretty; }
+  a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+  a:hover { text-decoration-thickness: 2px; }
+  :focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+  .skip-link {
+    position: absolute; left: -9999px; top: 0;
+    background: var(--slab); color: var(--brand); padding: 0.75em 1em; text-decoration: none;
+  }
+  .skip-link:focus { left: 0.5em; top: 0.5em; z-index: 20; }
+  .wrap { max-width: 1180px; margin: 0 auto; padding-left: var(--x0); padding-right: var(--x0); }
+  header.site-header { padding: clamp(10px, 2.41vw, 26px) 0 0; }
+  header.site-header .wrap { display: flex; align-items: center; justify-content: space-between; gap: 8px 1em; flex-wrap: wrap; }
+  .brand { display: inline-flex; align-items: baseline; gap: 0.42em; color: var(--ink); text-decoration: none; }
+  .brand .brand-mark { align-self: center; }
+  .brand span {
+    font-family: Unbounded, Manrope, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-weight: 700; font-size: 19px; letter-spacing: 0.02em; line-height: 1;
+  }
+  .brand:hover { text-decoration: none; }
+  header.site-header nav { display: flex; gap: 1.3em; flex-wrap: wrap; align-items: center; }
+  header.site-header nav a {
+    font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-weight: 600; font-size: 11px; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--muted); text-decoration: none; padding: 6px 0;
+  }
+  header.site-header nav a:hover { color: var(--accent); text-decoration: underline; }
+  header.site-header nav a.nav-watch { color: var(--accent); display: inline-flex; align-items: center; gap: 0.5em; }
+  .nav-watch svg { width: 8px; height: 9px; fill: currentColor; flex: none; }
+  @media (max-width: 599px) {
+    header.site-header nav { width: 100%; justify-content: space-between; padding: 4px 0; border-bottom: 1px solid var(--rule); }
+  }
+  .eyebrow {
+    font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-weight: 600; font-size: clamp(11px, 1.05vw, 14px);
+    letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted);
+    margin: 0 0 1.1em;
+  }
+  h1.display, h2.display {
+    font-family: Manrope, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-weight: 800;
+    font-size: clamp(34px, 8.4vw, 76px); line-height: 1.34; letter-spacing: -0.02em;
+    color: var(--ink); margin: 0 0 0.42em; text-wrap: balance;
+  }
+  .display .key { color: var(--accent); }
+  .hero-copy h1 .eyebrow { display: block; line-height: 1.6; }
+  .hero .display .key { position: relative; z-index: 0; color: var(--ink); white-space: nowrap; }
+  .hero .display .key::after {
+    content: ""; position: absolute; z-index: -1;
+    left: -0.06em; right: -0.08em; bottom: 0.24em; height: 0.36em;
+    background: var(--brand); border-radius: 0.06em;
+    transform-origin: 0 50%;
+  }
+  .lede { font-size: clamp(17px, 2.1vw, 22px); line-height: 1.5; margin: 0 0 0.7em; max-width: 30ch; }
+  .sub { color: var(--muted); font-size: clamp(15px, 1.7vw, 18px); margin: 0 0 1.9em; max-width: 38ch; }
+  main { display: block; }
+  section.hero { padding: clamp(16px, 3.70vw, 40px) 0 0; }
+  .hero-grid {
+    display: grid; grid-template-columns: minmax(0, 1fr); gap: 0;
+    grid-template-areas: "copy" "act" "watch";
+    align-items: start;
+  }
+  .hero-copy { grid-area: copy; }
+  .hero-act { grid-area: act; }
+  .hero-watch { grid-area: watch; margin-top: 26px; }
+  form.signup { max-width: 460px; }
+  .field-label {
+    display: block; font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-weight: 600; font-size: 11px;
+    letter-spacing: 0.16em; text-transform: uppercase; color: var(--muted); margin-bottom: 8px;
+  }
+  input[type="email"] {
+    width: 100%; display: block;
+    background: var(--field); color: var(--ink);
+    border: 1.5px solid var(--ink); border-radius: 6px; 
+    padding: 15px 16px; font-family: Manrope, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-weight: 500; font-size: 17px; line-height: 1.3;
+    appearance: none;
+    transition: border-color var(--t-quick) ease;
+  }
+  input[type="email"]::placeholder { color: var(--muted); opacity: 1; }
+  input[type="email"]:hover { border-color: var(--accent); }
+  input[type="email"]:focus { outline: 3px solid var(--accent); outline-offset: 2px; border-color: var(--accent); }
+  .adult { display: flex; align-items: center; gap: 11px; margin: 16px 0 20px; }
+  .adult input[type="checkbox"] {
+    flex: none; width: 24px; height: 24px; margin: 0; accent-color: var(--app-volt);
+  }
+  .adult label { font-size: 15px; line-height: 24px; min-height: 24px; color: var(--ink); cursor: pointer; }
+  .cta {
+    display: block; width: 100%; text-align: center; cursor: pointer;
+    background: var(--app-volt); color: var(--app-on-volt);
+    border: 1.5px solid var(--app-volt); border-radius: 6px; 
+    padding: 0.42em 0.6em 0.48em;
+    font-family: Manrope, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-weight: 800; font-size: clamp(21px, 5.4vw, 32px); line-height: 1.3;
+    letter-spacing: -0.02em;
+    text-decoration: none;
+    box-shadow: 0px 2px 5px rgba(41,34,18,0.16), 0px 12px 26px -8px rgba(41,34,18,0.3);
+    transition:
+      background-color var(--t-quick) ease,
+      border-color var(--t-quick) ease,
+      box-shadow var(--t-base) var(--ease-out),
+      transform var(--t-base) var(--ease-out);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .cta:hover {
+      background: var(--app-volt-dim); border-color: var(--app-volt-dim);
+      box-shadow: 0px 3px 7px rgba(41,34,18,0.16), 0px 20px 38px -10px rgba(41,34,18,0.34);
+      transform: translate3d(0, -2px, 0);
+      text-decoration: none;
+    }
+  }
+  .cta:active {
+    background: var(--app-volt-dim); border-color: var(--app-volt-dim);
+    box-shadow: 0px 1px 3px rgba(41,34,18,0.18);
+    transform: scale(0.97);
+    transition-duration: var(--t-instant);
+  }
+  .promise { font-size: 15px; line-height: 1.5; margin: 16px 0 0; max-width: 44ch; }
+  .fineprint { font-size: 13.5px; line-height: 1.55; color: var(--muted); margin: 8px 0 0; max-width: 46ch; }
+  .get-app { max-width: 460px; container-type: inline-size; }
+  .cta-fit { font-size: min(1em, calc((100cqi - 5px - 1.2em) / 13.2)); }
+  .hp { position: absolute; left: -9999px; top: auto; width: 1px; height: 1px; overflow: hidden; }
+  .trailer {
+    display: inline-flex; align-items: center; gap: 12px;
+    min-height: 48px; padding: 7px 18px 7px 7px;
+    background: rgba(255,255,255,0.6); border: 1px solid var(--rule); border-radius: 999px;
+    color: var(--ink); text-decoration: none;
+    font-weight: 700; font-size: 15px; line-height: 1.2;
+    transition:
+      border-color var(--t-quick) ease,
+      transform var(--t-base) var(--ease-out),
+      box-shadow var(--t-base) var(--ease-out);
+  }
+  .trailer-play {
+    flex: none; width: 34px; height: 34px; border-radius: 999px; background: var(--app-volt);
+    display: grid; place-items: center;
+  }
+  .trailer-play svg { width: 13px; height: 14px; margin-left: 2px; fill: var(--app-on-volt); display: block; }
+  .trailer-time {
+    font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-weight: 600; font-size: 12px;
+    letter-spacing: 0.08em; color: var(--muted);
+    padding-left: 12px; border-left: 1px solid var(--rule);
+  }
+  .trailer:hover { text-decoration: none; border-color: var(--accent); }
+  @media (hover: hover) and (pointer: fine) {
+    .trailer:hover { transform: translate3d(0, -1px, 0); box-shadow: 0 10px 22px -12px rgba(41,34,18,0.35); }
+  }
+  .trailer:active { transform: scale(0.97); transition-duration: var(--t-instant); }
+  section.moments { padding: clamp(56px, 9vw, 104px) 0 0; }
+  .moments-inner {
+    display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; column-gap: 16px;
+    max-width: 480px;
+  }
+  .moments-inner > .eyebrow { grid-column: 1; grid-row: 1; margin: 0; }
+  .moment-list {
+    grid-column: 1 / -1; grid-row: 2;
+    list-style: none; margin: clamp(16px, 2.2vw, 26px) 0 0; padding: 0;
+    display: grid; grid-template-columns: minmax(0, 1fr); grid-auto-rows: 1fr; gap: 16px;
+  }
+  .pause-box {
+    grid-column: 2; grid-row: 1; z-index: 1; position: relative;
+    width: 100%; height: 44px; margin: -11px 0; padding: 0; border: 0;
+    appearance: none; -webkit-appearance: none; background: none; opacity: 0; cursor: pointer;
+  }
+  .pause {
+    grid-column: 2; grid-row: 1;
+    display: inline-flex; align-items: center; gap: 7px;
+    height: 30px; margin: -4px 0; padding: 0 12px 0 11px;
+    background: rgba(255,255,255,0.6); border: 1px solid var(--rule); border-radius: 999px;
+    font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-weight: 600; font-size: 11px; line-height: 1; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--ink); white-space: nowrap;
+    transition: border-color var(--t-quick) ease, transform var(--t-base) var(--ease-out);
+  }
+  .pause svg { display: block; flex: none; width: 9px; height: 10px; fill: currentColor; }
+  .pause .pw { display: grid; }
+  .pause .pw > span { grid-area: 1 / 1; text-align: center; }
+  .pause .is-play { display: none; }
+  .pause .pw .w-play { visibility: hidden; }
+  #moments-pause:checked + .pause .is-pause { display: none; }
+  #moments-pause:checked + .pause .is-play { display: block; }
+  #moments-pause:checked + .pause .pw .w-pause { visibility: hidden; }
+  #moments-pause:checked + .pause .pw .w-play { visibility: visible; }
+  #moments-pause:focus-visible + .pause { outline: 3px solid var(--accent); outline-offset: 2px; }
+  @media (hover: hover) and (pointer: fine) {
+    #moments-pause:hover + .pause { border-color: var(--accent); }
+  }
+  #moments-pause:active + .pause { transform: scale(0.97); transition-duration: var(--t-instant); }
+  .moment-card {
+    height: 100%; display: flex; flex-direction: column;
+    background: var(--app-surface); border: 1px solid var(--hairline); border-radius: 14px;
+    box-shadow: var(--card-shadow);
+  }
+  .stage {
+    container-type: inline-size;
+    margin: 7px 7px 0; height: 214px; padding: 14px;
+    border-radius: 9px; background: var(--app-bg); border: 1px solid #E6E9DD;
+    display: flex; flex-direction: column; justify-content: center;
+    overflow: hidden; overflow: clip;
+  }
+  .moment-line {
+    margin: 0; padding: 14px 18px 18px;
+    font-weight: 700; font-size: 16.5px; line-height: 1.38; letter-spacing: -0.01em; color: var(--ink);
+    text-wrap: balance;
+  }
+  .moment-line .no {
+    display: block; margin-bottom: 6px;
+    font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-weight: 600; font-size: 11px; letter-spacing: 0.16em; color: var(--accent);
+  }
+  .chips { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+  .chip {
+    display: flex; align-items: baseline; justify-content: space-between; gap: 10px;
+    background: var(--app-surface); border: 1px solid var(--app-border); border-radius: 3px;
+    padding: 0.62em 0.75em; line-height: 1.2;
+    font-size: 12px;
+    font-size: clamp(10px, 4.5cqi, 13px);
+  }
+  .chip b {
+    font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-weight: 600; letter-spacing: 0.06em;
+    text-transform: uppercase; color: var(--app-text); white-space: nowrap;
+  }
+  .chip i { font-style: normal; font-size: 1.04em; color: var(--app-muted); white-space: nowrap; }
+  .overlap {
+    display: grid; margin-top: 10px; padding: 0.62em 0.75em;
+    border: 1px solid var(--tier-many); border-radius: 3px; background: var(--app-surface);
+    font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-weight: 600; line-height: 1.2; letter-spacing: 0.08em; white-space: nowrap;
+    font-size: 12.5px;
+    font-size: clamp(10.5px, 4.8cqi, 14px);
+    transform-origin: 0 50%;
+  }
+  .overlap > span { grid-area: 1 / 1; }
+  .overlap .t0 { color: var(--tier-none); opacity: 0; }
+  .overlap .t1 { color: var(--tier-one); opacity: 0; }
+  .overlap .t2 { color: var(--tier-two); opacity: 0; }
+  .overlap .t3 { color: var(--tier-many); }
+  .lockin { display: flex; align-items: center; justify-content: center; gap: 4px; }
+  .lockin .br { font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-weight: 600; font-size: 58px; line-height: 0.74; color: var(--app-volt); }
+  .lockin svg { display: block; width: 98px; height: auto; overflow: visible; }
+  .lock {
+    margin: 14px 0 2px; text-align: center;
+    font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-weight: 600; font-size: 14px; line-height: 1.375;
+    letter-spacing: 0.1875em; text-indent: 0.1875em; text-transform: uppercase; color: var(--app-volt);
+  }
+  .both { margin: 0; text-align: center; font-size: 14px; line-height: 1.45; color: var(--app-text); }
+  .stage.talk { justify-content: flex-end; }
+  .chat { display: flex; flex-direction: column; gap: 6px; margin-top: auto; }
+  .bubble { margin: 0; max-width: 80%; padding: 7px 12px; font-size: 14.5px; line-height: 1.35; border-radius: 13px; color: var(--app-text); }
+  .bubble.in { align-self: flex-start; background: var(--app-surface); border: 1px solid var(--app-border); border-bottom-left-radius: 4px; }
+  .bubble.out { align-self: flex-end; background: var(--bubble-own); border: 1px solid #D3DFB0; border-bottom-right-radius: 4px; }
+  .composer { display: flex; align-items: center; gap: 8px; margin-top: 8px; }
+  .composer .box {
+    position: relative; flex: 1; min-width: 0;
+    background: var(--app-alt); border: 1px solid var(--app-border); border-radius: 6px;
+    padding: 9px 12px; font-size: 14.5px; line-height: 1.35; color: var(--app-muted);
+  }
+  .composer .typed { position: absolute; left: 12px; top: 9px; color: var(--app-text); opacity: 0; white-space: nowrap; }
+  .composer .send {
+    flex: none; width: 38px; height: 38px; border-radius: 999px; background: var(--app-volt);
+    display: grid; place-items: center;
+  }
+  .composer .send svg { display: block; width: 18px; height: 18px; }
+  @media (min-width: 720px) and (max-width: 1079px) {
+    .moments-inner { max-width: 760px; }
+    .moment-card { flex-direction: row; align-items: center; }
+    .stage { flex: none; width: 320px; margin: 7px; }
+    .moment-line { padding: 20px 28px 20px 22px; font-size: 20px; }
+  }
+  @media (min-width: 1080px) {
+    .moments-inner { max-width: none; }
+    .moment-list { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(16px, 1.8vw, 26px); }
+    .moment-line { font-size: 17px; }
+  }
+  section.plain { padding: clamp(56px, 9vw, 104px) 0; }
+  section.plain + section.plain { padding-top: 0; }
+  .plain-list { display: grid; grid-template-columns: 1fr; gap: clamp(20px, 3.2vw, 36px); margin: 0; padding: 0; list-style: none; }
+  .plain-list li { position: relative; padding-top: clamp(14px, 2vw, 22px); }
+  .plain-list li::before {
+    content: ""; position: absolute; left: 0; right: 0; top: 0; height: 1px;
+    background: var(--rule); transform-origin: 0 50%;
+  }
+  .plain-list li::after {
+    content: ""; position: absolute; left: 0; top: -1px; width: 28px; height: 3px;
+    background: var(--accent); transform-origin: 0 50%;
+  }
+  .plain-list h3 {
+    font-family: Manrope, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-weight: 800; font-size: 20px; letter-spacing: -0.02em;
+    margin: 0 0 6px; color: var(--ink); text-wrap: balance;
+  }
+  .plain-list p { margin: 0; color: var(--muted); font-size: 15.5px; line-height: 1.55; max-width: 42ch; }
+  .again { margin: clamp(28px, 4vw, 44px) 0 0; }
+  .cta-ghost {
+    display: inline-flex; align-items: center; gap: 0.45em;
+    min-height: 44px; padding: 0 16px;
+    border: 1.5px solid var(--app-volt); border-radius: 6px;
+    background: transparent; color: var(--app-volt); text-decoration: none;
+    font-family: Manrope, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-weight: 800; font-size: 16px; line-height: 1.2; letter-spacing: -0.01em;
+    transition:
+      background-color var(--t-quick) ease,
+      border-color var(--t-quick) ease,
+      color var(--t-quick) ease,
+      transform var(--t-base) var(--ease-out);
+  }
+  @media (hover: hover) and (pointer: fine) {
+    .cta-ghost:hover { background: var(--app-volt); color: var(--app-on-volt); text-decoration: none; }
+  }
+  .cta-ghost:active {
+    background: var(--app-volt-dim); border-color: var(--app-volt-dim); color: var(--app-on-volt);
+    transform: scale(0.97); transition-duration: var(--t-instant);
+  }
+  section.outcome { padding: 8vh 0 12vh; }
+  .outcome .display { max-width: 16ch; }
+  .outcome p { max-width: 44ch; }
+  article { max-width: 68ch; padding: 26px 0 40px; overflow-wrap: anywhere; }
+  article h1 { font-family: Manrope, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-weight: 800; font-size: clamp(28px, 5vw, 40px); line-height: 1.18; letter-spacing: -0.02em; margin: 0 0 0.4em; }
+  article h2 { font-family: Manrope, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-weight: 800; font-size: 1.28em; line-height: 1.3; letter-spacing: -0.015em; margin: 1.9em 0 0.6em; padding-top: 0.7em; border-top: 1px solid var(--rule); }
+  article h2:first-child { border-top: none; padding-top: 0; margin-top: 0; }
+  article hr + h2 { border-top: none; padding-top: 0; margin-top: 0.7em; }
+  article h3 { font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-weight: 600; font-size: 0.78em; margin: 1.5em 0 0.5em; color: var(--muted); text-transform: uppercase; letter-spacing: 0.14em; }
+  article p { margin: 0 0 1em; }
+  article ul, article ol { margin: 0 0 1em; padding-left: 1.4em; }
+  article li { margin: 0.35em 0; }
+  article li > ul, article li > ol { margin-top: 0.35em; }
+  article hr { border: none; border-top: 1px solid var(--rule); margin: 2em 0; }
+  article strong { font-weight: 700; color: var(--ink); }
+  article code {
+    background: rgba(22,26,15,0.05); border: 1px solid var(--rule);
+    padding: 0.15em 0.4em; font-size: 0.86em; font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-weight: 600;
+  }
+  .table-scroll { overflow-x: auto; margin: 0 0 1.4em; border: 1px solid var(--rule); }
+  table { border-collapse: collapse; width: 100%; min-width: 480px; font-size: 0.9em; }
+  th, td { text-align: left; padding: 0.6em 0.75em; border-bottom: 1px solid var(--rule); vertical-align: top; }
+  thead th { background: rgba(22,26,15,0.04); color: var(--muted); font-weight: 700; white-space: nowrap; }
+  tbody tr:last-child td { border-bottom: none; }
+  section.card {
+    background: var(--app-surface); border: 1px solid var(--hairline); border-radius: 14px;
+    box-shadow: var(--card-shadow);
+    padding: clamp(20px, 3vw, 36px); margin: 0;
+  }
+  section.card h2 {
+    font-family: Manrope, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-weight: 800; font-size: 22px; letter-spacing: -0.02em; line-height: 1.3;
+    margin: 0 0 10px;
+  }
+  section.card p { margin: 0 0 0.9em; font-size: 16px; line-height: 1.6; max-width: 62ch; }
+  section.card p:last-child { margin-bottom: 0; }
+  footer.site-footer { border-top: 1px solid var(--rule); padding: clamp(10px, 2.41vw, 26px) 0 clamp(24px, 5.74vw, 62px); color: var(--muted); font-size: 13.5px; }
+  footer.site-footer nav { margin-top: 8px; display: flex; gap: 10px; flex-wrap: wrap; }
+  footer.site-footer a { color: var(--muted); }
+  footer.site-footer a:hover { color: var(--accent); }
+  footer.site-footer .riot-notice { margin: 14px 0 0; font-size: 12.5px; line-height: 1.55; max-width: 76ch; }
+  footer.site-footer .riot-notice + .riot-notice { margin-top: 6px; }
+  .qbar { display: none; }
+  .qbar-in { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 58px; }
+  .qbar .brand span { font-size: 17px; }
+  .qbar-cta {
+    display: inline-flex; align-items: center; gap: 8px;
+    min-height: 40px; padding: 0 14px;
+    background: var(--app-volt); color: var(--app-on-volt); border-radius: 6px; 
+    text-decoration: none;
+    font-family: Manrope, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-weight: 800; font-size: 15px; line-height: 1.2; letter-spacing: -0.01em;
+    box-shadow: 0px 2px 5px rgba(41,34,18,0.16);
+    transition:
+      background-color var(--t-quick) ease,
+      transform var(--t-base) var(--ease-out);
+  }
+  .qbar-cta:hover { background: var(--app-volt-dim); text-decoration: none; }
+  .qbar-cta:active { background: var(--app-volt-dim); transform: scale(0.97); transition-duration: var(--t-instant); }
+  .qbar-cta svg { width: 15px; height: 15px; display: block; }
+  @media (max-width: 479.98px) {
+    .qbar-more { display: none; }
+  }
+  @keyframes rise {
+    from { opacity: 0; transform: perspective(900px) translate3d(0, 10px, -70px); }
+    to   { opacity: 1; transform: perspective(900px) translate3d(0, 0, 0); }
+  }
+  .hero-copy .eyebrow,
+  .hero-copy h1.display,
+  .hero-copy .lede,
+  .hero-copy .sub,
+  .hero-act,
+  .hero-watch {
+    animation: rise var(--t-arrival) var(--ease-out) backwards;
+  }
+  .hero-copy h1.display { animation-delay: 60ms; }
+  .hero-copy h1 .eyebrow { animation: none; }
+  .hero-copy .lede      { animation-delay: 120ms; }
+  .hero-copy .sub       { animation-delay: 180ms; }
+  .hero-act             { animation-delay: 240ms; }
+  .hero-watch           { animation-delay: 300ms; }
+  @keyframes mark-swipe {
+    from { transform: scaleX(0); }
+    to   { transform: scaleX(1); }
+  }
+  .hero .display .key::after { animation: mark-swipe 460ms cubic-bezier(0.65, 0, 0.35, 1) 360ms backwards; }
+  @keyframes card-in {
+    from { opacity: 0; transform: translateY(32px); }
+    to   { opacity: 1; transform: none; }
+  }
+  @keyframes card-rise {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: none; }
+  }
+  @keyframes chip-a {
+    0%, 1.067% { opacity: 0; transform: translateX(-40px); animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1); }
+    7.467%, 94.444% { opacity: 1; transform: none; }
+    97.778% { opacity: 0; transform: none; }
+    97.889%, 100% { opacity: 0; transform: translateX(-40px); }
+  }
+  @keyframes chip-b {
+    0%, 6.4% { opacity: 0; transform: translateX(40px); animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1); }
+    12.8%, 94.444% { opacity: 1; transform: none; }
+    97.778% { opacity: 0; transform: none; }
+    97.889%, 100% { opacity: 0; transform: translateX(40px); }
+  }
+  @keyframes chip-c {
+    0%, 11.733% { opacity: 0; transform: translateX(-40px); animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1); }
+    18.133%, 94.444% { opacity: 1; transform: none; }
+    97.778% { opacity: 0; transform: none; }
+    97.889%, 100% { opacity: 0; transform: translateX(-40px); }
+  }
+  @keyframes t0 { 0%, 5.307% { opacity: 1; } 5.333%, 97.778% { opacity: 0; } 100% { opacity: 1; } }
+  @keyframes t1 { 0%, 5.307% { opacity: 0; } 5.333%, 10.64% { opacity: 1; } 10.667%, 100% { opacity: 0; } }
+  @keyframes t2 { 0%, 10.64% { opacity: 0; } 10.667%, 15.973% { opacity: 1; } 16%, 100% { opacity: 0; } }
+  @keyframes t3 { 0%, 15.973% { opacity: 0; } 16%, 94.444% { opacity: 1; } 97.778%, 100% { opacity: 0; } }
+  @keyframes tier {
+    0%, 5.307%         { border-color: #66705C; }
+    5.333%, 10.64%  { border-color: #4E7018; }
+    10.667%, 15.973%  { border-color: #5A7A00; }
+    16%, 94.444%    { border-color: #8F5E00; }
+    97.778%, 100%          { border-color: #66705C; }
+  }
+  @keyframes stamp { 0%, 16% { transform: none; } 17.6% { transform: scale(1.05); } 20.8%, 100% { transform: none; } }
+  @keyframes ring-ink {
+    0%, 1.067%         { opacity: 1; transform: translateX(-190px); animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1); }
+    12.267%, 94.444% { opacity: 1; transform: none; }
+    97.778%             { opacity: 0; transform: none; }
+    97.889%            { opacity: 0; transform: translateX(-190px); }
+    100%                 { opacity: 1; transform: translateX(-190px); }
+  }
+  @keyframes ring-duo {
+    0%, 1.067%         { opacity: 1; transform: translateX(190px); animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1); }
+    12.267%, 94.444% { opacity: 1; transform: none; }
+    97.778%             { opacity: 0; transform: none; }
+    97.889%            { opacity: 0; transform: translateX(190px); }
+    100%                 { opacity: 1; transform: translateX(190px); }
+  }
+  @keyframes br-l {
+    0%, 10.667% { opacity: 0; transform: translateX(-0.7em); animation-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1); }
+    16%, 94.444% { opacity: 1; transform: none; }
+    97.778% { opacity: 0; transform: none; }
+    97.889%, 100% { opacity: 0; transform: translateX(-0.7em); }
+  }
+  @keyframes br-r {
+    0%, 10.667% { opacity: 0; transform: translateX(0.7em); animation-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1); }
+    16%, 94.444% { opacity: 1; transform: none; }
+    97.778% { opacity: 0; transform: none; }
+    97.889%, 100% { opacity: 0; transform: translateX(0.7em); }
+  }
+  @keyframes lock-in {
+    0%, 13.867% { opacity: 0; transform: scale(1.25); animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1); }
+    18.133%, 94.444% { opacity: 1; transform: none; }
+    97.778% { opacity: 0; transform: none; }
+    97.889%, 100% { opacity: 0; transform: scale(1.25); }
+  }
+  @keyframes line-in {
+    0%, 16.533% { opacity: 0; transform: translateY(6px); animation-timing-function: linear; }
+    21.333%, 94.444% { opacity: 1; transform: none; }
+    97.778% { opacity: 0; transform: none; }
+    97.889%, 100% { opacity: 0; transform: translateY(6px); }
+  }
+  @keyframes bubble-in {
+    0%, 1.067% { opacity: 0; transform: translateY(10px) scale(0.96); animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1); }
+    5.333%, 94.444% { opacity: 1; transform: none; }
+    97.778% { opacity: 0; transform: none; }
+    97.889%, 100% { opacity: 0; transform: translateY(10px) scale(0.96); }
+  }
+  @keyframes ph { 0%, 6.373% { opacity: 1; } 6.4%, 16.507% { opacity: 0; } 16.533%, 100% { opacity: 1; } }
+  @keyframes typing {
+    0%, 6.4%           { opacity: 1; clip-path: inset(0 100% 0 0); animation-timing-function: steps(15, end); }
+    13.333%, 15.973%  { opacity: 1; clip-path: inset(0 0 0 0); }
+    16%, 100%         { opacity: 0; clip-path: inset(0 0 0 0); }
+  }
+  @keyframes press { 0%, 14.133% { transform: none; } 15.2% { transform: scale(0.84); } 16.533%, 100% { transform: none; } }
+  @keyframes bubble-out {
+    0%, 16% { opacity: 0; transform: translateY(12px) scale(0.94); animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1); }
+    20.267%, 94.444% { opacity: 1; transform: none; }
+    97.778% { opacity: 0; transform: none; }
+    97.889%, 100% { opacity: 0; transform: translateY(12px) scale(0.94); }
+  }
+  @keyframes rule-draw {
+    from { transform: scaleX(0); }
+    to   { transform: scaleX(1); }
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .sd {
+      animation-duration: 9s;
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
+      animation-fill-mode: backwards;
+    }
+    .m1 .sd { animation-delay: 600ms; }
+    .m2 .sd { animation-delay: 1200ms; }
+    .m3 .sd { animation-delay: 1800ms; }
+    .m1 .chip:nth-child(1) { animation-name: chip-a; }
+    .m1 .chip:nth-child(2) { animation-name: chip-b; }
+    .m1 .chip:nth-child(3) { animation-name: chip-c; }
+    .m1 .overlap { animation-name: tier, stamp; }
+    .m1 .t0 { animation-name: t0; }
+    .m1 .t1 { animation-name: t1; }
+    .m1 .t2 { animation-name: t2; }
+    .m1 .t3 { animation-name: t3; }
+    .m2 .ring-ink { animation-name: ring-ink; }
+    .m2 .ring-duo { animation-name: ring-duo; }
+    .m2 .br-l { animation-name: br-l; }
+    .m2 .br-r { animation-name: br-r; }
+    .m2 .lock { animation-name: lock-in; }
+    .m2 .both { animation-name: line-in; }
+    .m3 .bubble.in { animation-name: bubble-in; }
+    .m3 .ph { animation-name: ph; }
+    .m3 .typed { animation-name: typing; }
+    .m3 .send { animation-name: press; }
+    .m3 .bubble.out { animation-name: bubble-out; }
+  }
+  #moments-pause:checked ~ .moment-list .sd { animation: none; }
+  @supports (animation-timeline: view()) and (animation-range: entry) {
+    @media (prefers-reduced-motion: no-preference) and (max-width: 859.98px) {
+      .moment { view-timeline: --moment; view-timeline-inset: 0; }
+      .moment-card {
+        animation-name: card-in; animation-fill-mode: both; animation-timing-function: var(--ease-out);
+        animation-timeline: --moment; animation-range: entry 0% entry 65%;
+      }
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      .plain-list li { view-timeline: --plain; view-timeline-inset: 0; }
+      .plain-list li::before {
+        animation: rule-draw linear both;
+        animation-timeline: --plain; animation-range: entry 30% contain 25%;
+      }
+      .plain-list li::after {
+        animation: rule-draw linear both;
+        animation-timeline: --plain; animation-range: entry 70% contain 40%;
+      }
+    }
+  }
+  @media (prefers-reduced-motion: no-preference) and (min-width: 860px) {
+    .moment-card { animation: card-rise var(--t-arrival) var(--ease-out) backwards; }
+    .moment:nth-child(1) .moment-card { animation-delay: 300ms; }
+    .moment:nth-child(2) .moment-card { animation-delay: 360ms; }
+    .moment:nth-child(3) .moment-card { animation-delay: 420ms; }
+  }
+  @keyframes qbar-in {
+    from { transform: translateY(-100%); visibility: hidden; }
+    to   { transform: none; visibility: visible; }
+  }
+  @keyframes qbar-show {
+    from { visibility: hidden; }
+    to   { visibility: visible; }
+  }
+  @supports (timeline-scope: --act) and (animation-timeline: view()) and (animation-range: exit) {
+    body { timeline-scope: --act; }
+    #waitlist-form, #get-app { view-timeline: --act; view-timeline-inset: 0; }
+    html:has(.qbar):has(#waitlist-form, #get-app) { scroll-padding-top: 72px; }
+    .qbar {
+      display: block; position: fixed; z-index: 30; top: 0; left: 0; right: 0;
+      background: rgba(246,243,234,0.9);
+      -webkit-backdrop-filter: saturate(1.4) blur(14px); backdrop-filter: saturate(1.4) blur(14px);
+      border-bottom: 1px solid var(--rule);
+      animation-name: qbar-in; animation-fill-mode: both; animation-timing-function: linear;
+      animation-timeline: --act; animation-range: exit 100% exit calc(100% + 72px);
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .qbar { animation-name: qbar-show; animation-timing-function: steps(1, start); }
+    }
+    body:not(:has(#waitlist-form, #get-app)) .qbar { display: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hero-copy .eyebrow,
+    .hero-copy h1.display,
+    .hero-copy .lede,
+    .hero-copy .sub,
+    .hero-act,
+    .hero-watch,
+    .hero .display .key::after,
+    .moment-card,
+    .sd,
+    .plain-list li::before,
+    .plain-list li::after {
+      animation: none !important;
+      transition: none !important;
+    }
+    #moments-pause, .pause { display: none; }
+    .cta { transition-property: background-color, border-color; }
+    .cta:hover, .cta:active { transform: none; box-shadow: 0px 2px 5px rgba(41,34,18,0.16), 0px 12px 26px -8px rgba(41,34,18,0.3); }
+    .trailer, .trailer:hover, .trailer:active,
+    .cta-ghost, .cta-ghost:active,
+    .qbar-cta, .qbar-cta:active { transform: none; }
+  }
+  @media (min-width: 900px) {
+    .hero-grid {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 460px);
+      grid-template-areas: "copy act" "watch act";
+      grid-template-rows: auto 1fr;
+      column-gap: clamp(40px, 5vw, 84px); row-gap: 0;
+      align-items: start;
+    }
+    .hero-copy .sub { margin-bottom: 0; }
+    .hero-act-store { align-self: center; }
+    .hero-watch { margin-top: 30px; }
+    .plain-list { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(24px, 4vw, 52px); }
+    section.card {
+      display: grid; grid-template-columns: minmax(0, 240px) minmax(0, 1fr);
+      column-gap: clamp(24px, 4vw, 56px);
+    }
+    section.card h2 { grid-row: 1 / span 3; }
+  }
+  @media (min-width: 1500px) {
+    .wrap { max-width: 1560px; }
+    .hero-grid {
+      grid-template-columns: minmax(0, 560px) minmax(0, 460px) minmax(0, 1fr);
+      grid-template-areas: "copy act ." "watch act .";
+    }
+  }
+  @media (max-width: 899px) and (max-height: 760px) {
+    section.hero { padding: 16px 0 0; }
+    h1.display { font-size: clamp(30px, 7.2vw, 52px); margin-bottom: 0.28em; }
+    .lede { font-size: clamp(15.5px, 4.3vw, 19px); margin-bottom: 0.5em; }
+    .sub { font-size: clamp(13.5px, 3.6vw, 16px); margin-bottom: 1.15em; }
+    .eyebrow { font-size: clamp(10.5px, 2.41vw, 14px); margin-bottom: 0.75em; }
+    .field-label { margin-bottom: 6px; }
+    input[type="email"] { padding: 13px 14px; }
+    .adult { margin: 10px 0 13px; }
+    .cta { font-size: clamp(21px, 5.1vw, 30px); }
+  }
+  @media (max-width: 479px) and (max-height: 620px) {
+    header.site-header { padding: 10px 0 2px; }
+    header.site-header .wrap { row-gap: 2px; }
+    header.site-header nav { padding: 0; }
+    section.hero { padding: 8px 0 0; }
+    .eyebrow { margin-bottom: 0.5em; }
+    h1.display { margin-bottom: 0.2em; }
+    .lede { margin-bottom: 0.35em; }
+    .sub { margin-bottom: 0.7em; }
+    .field-label { margin-bottom: 4px; }
+    input[type="email"] { padding: 11px 14px; }
+    .adult { margin: 7px 0 9px; }
+  }
+  @media (min-width: 480px) and (max-width: 899px) and (max-height: 560px) {
+    section.hero { padding: 12px 0 0; }
+    .hero-grid {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      grid-template-areas: "copy act" "watch act";
+      grid-template-rows: auto 1fr;
+      column-gap: clamp(20px, 4vw, 40px);
+      align-items: start;
+    }
+    .hero-copy .sub { margin-bottom: 0; }
+    h1.display { font-size: clamp(26px, 5.6vw, 40px); }
+    .lede { font-size: clamp(14.5px, 2.4vw, 17px); }
+    .sub { font-size: clamp(13px, 2vw, 15px); }
+    .cta { font-size: clamp(17px, 3.6vw, 26px); }
+  }
+  @media (min-width: 900px) and (max-height: 940px),
+         (min-width: 900px) and (max-width: 1199px) {
+    section.hero { padding: clamp(10px, 2.41vw, 26px) 0 0; }
+    h1.display { font-size: clamp(34px, 5.1vw, 58px); margin-bottom: 0.3em; }
+    .lede { font-size: clamp(16px, 1.42vw, 19px); margin-bottom: 0.45em; }
+    .sub { font-size: clamp(14px, 1.18vw, 16px); margin-bottom: 1.1em; }
+    .eyebrow { margin-bottom: 0.7em; }
+    .field-label { margin-bottom: 5px; }
+    input[type="email"] { padding: 12px 14px; font-size: 16px; }
+    .adult { margin: 12px 0 14px; }
+    .cta { font-size: clamp(21px, 3.3vw, 30px); }
+    .promise { margin-top: 12px; }
+  }
+  section.lockup { padding: 0 0 clamp(36px, 10.93vw, 118px); text-align: center; }
+  .lockup .wrap {
+    padding-left: clamp(12px, 5.7%, 62px); padding-right: clamp(12px, 5.7%, 62px);
+    container-type: inline-size;
+  }
+  .lockup-inner { display: flex; flex-direction: column; align-items: center; gap: clamp(16px, 3.70vw, 40px); }
+  .lockup .brand-mark {
+    --mark-w: clamp(101px, 27.7vw, 300px);
+    width: var(--mark-w); height: auto;
+    margin-top: calc(var(--mark-w) * -0.29);
+    margin-bottom: calc(var(--mark-w) * -0.2686);
+  }
+  .lockup .brand-mark { --mark-w: clamp(96px, 29.2cqi, 406px); }
+  .wordmark {
+    font-family: Unbounded, Manrope, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-weight: 700; font-size: clamp(42px, 13.6vw, 148px);
+    line-height: 1.16; letter-spacing: 0.02em; color: var(--ink); white-space: nowrap;
+  }
+  .wordmark { font-size: min(14.4cqi, 200px); }
+  .url {
+    font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-weight: 600; font-size: clamp(14px, 3.2vw, 30px);
+    letter-spacing: 0.12em; color: var(--ink);
+  }
+  @supports (animation-timeline: view()) and (animation-range: entry) {
+    .lockup-inner > * {
+      animation-name: rise;
+      animation-fill-mode: backwards;
+      animation-timing-function: var(--ease-out);
+      animation-timeline: view();
+      animation-range: entry 0% entry 60%;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .lockup-inner > * { animation: none; }
+  }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="/"><svg class="brand-mark" width="26" height="26" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="DuoQueue">
+    <circle cx="660.992" cy="512" r="215.04" fill="none" stroke="var(--mark-duo)" stroke-width="98.9184" />
+    <circle cx="842.425508224487" cy="693.433508224487" r="55.394304000000005" fill="var(--mark-duo)" />
+    <circle cx="338.432" cy="512" r="215.04" fill="none" stroke="var(--mark-ink)" stroke-width="98.9184" />
+    <path d="M 583.6133027625533 712.6358363150401 A 215.04 215.04 0 0 1 452.25814711396214 563.6950699714191" fill="none" stroke="var(--mark-duo)" stroke-width="98.9184" />
+  </svg><span>duoqueue</span></a>
+    <nav>
+      <a href="/privacy/">Privacy</a>
+      <a href="/terms/">Terms</a>
+      <a href="/#support">Support</a>
+    </nav>
+  </div>
+</header>
+<main id="main">
+
+<section class="outcome">
+  <div class="wrap">
+    <p class="eyebrow">Out now on iPhone</p>
+    <h1 class="display">the wait is <span class="key">over</span></h1>
+    <p class="lede">DuoQueue is out, so there is no list to join any more. Get the app and make your profile.</p>
+
+      <div class="get-app" id="get-app">
+        <a class="cta" href="https://apps.apple.com/app/apple-store/id6798837181?pt=129274943&amp;ct=meta&amp;mt=8"><span class="cta-fit">Download on the App Store</span></a>
+        <p class="promise">Free to download on iPhone, 18+ only. Bring whatever you play. Most players are in North America right now.</p>
+      </div>
+    <p class="fineprint">Joined the waitlist and want your address deleted? Email <a href="mailto:support@duoqueue.io">support@duoqueue.io</a> and we will remove it.</p>
+  </div>
+</section>
+
+<section class="lockup">
+  <div class="wrap">
+    <div class="lockup-inner">
+      <svg class="brand-mark" width="250" height="250" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <circle cx="660.992" cy="512" r="215.04" fill="none" stroke="var(--mark-duo)" stroke-width="98.9184" />
+    <circle cx="842.425508224487" cy="693.433508224487" r="55.394304000000005" fill="var(--mark-duo)" />
+    <circle cx="338.432" cy="512" r="215.04" fill="none" stroke="var(--mark-ink)" stroke-width="98.9184" />
+    <path d="M 583.6133027625533 712.6358363150401 A 215.04 215.04 0 0 1 452.25814711396214 563.6950699714191" fill="none" stroke="var(--mark-duo)" stroke-width="98.9184" />
+  </svg>
+      <div class="wordmark">duoqueue</div>
+      <div class="url">duoqueue.io</div>
+    </div>
+  </div>
+</section>
+
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <p>DuoQueue is an 18+ app for finding people to play games with. It is platonic, not dating.</p>
+    <nav>
+      <a href="/">Home</a> <span aria-hidden="true">&middot;</span>
+      <a href="/privacy/">Privacy Policy</a> <span aria-hidden="true">&middot;</span>
+      <a href="/terms/">Terms of Service</a> <span aria-hidden="true">&middot;</span>
+      <a href="/terms/#13-intimate-images-shared-without-consent">Remove an intimate image</a> <span aria-hidden="true">&middot;</span>
+      <a href="mailto:support@duoqueue.io">support@duoqueue.io</a> <span aria-hidden="true">&middot;</span>
+      <a href="https://www.instagram.com/duoqueueapp/">Instagram</a> <span aria-hidden="true">&middot;</span>
+      <a href="https://www.tiktok.com/@duoqueueapp">TikTok</a>
+    </nav>
+    <p class="riot-notice">DuoQueue isn't endorsed by Riot Games and doesn't reflect the views or opinions of Riot Games or anyone officially involved in producing or managing Riot Games properties. Riot Games, and all associated properties are trademarks or registered trademarks of Riot Games, Inc.</p>
+    <p class="riot-notice">DuoQueue isn't affiliated with or endorsed by Epic Games. Fortnite is a trademark of Epic Games, Inc.</p>
+  </div>
+</footer>
+</body>
+</html>
